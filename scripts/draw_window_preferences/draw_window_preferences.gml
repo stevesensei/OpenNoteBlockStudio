@@ -6,13 +6,13 @@ x1 = floor(window_width / 2 - 250)
 y1 = floor(window_height / 2 - 200)
 draw_window(x1, y1, x1 + 500, y1 + 400)
 draw_set_font(fnt_mainbold)
-draw_text(x1 + 8, y1 + 8, "Preferences")
+draw_text(x1 + 8, y1 + 8, "设置")
 draw_set_font(fnt_main)
 b = 8
-str[0] = "General"
-str[1] = "Appearance"
-str[2] = "Usability"
-str[3] = "Playback"
+str[0] = "一般"
+str[1] = "外观"
+str[2] = "可用性设置"
+str[3] = "回放设置"
 if (theme = 1) {
     draw_window(x1 + 4, y1 + 45, x1 + 496, y1 + 364)
 }
@@ -60,14 +60,14 @@ if (selected_tab < 0) selected_tab = 3
 if (selected_tab > 3) selected_tab = 0
 draw_theme_color()
 if (selected_tab = 0) {
-    draw_areaheader(x1 + 22, y1 + 74, 218, 65, "Startup")
-    if (draw_checkbox(x1 + 40, y1 + 90, show_welcome, "Show greeting window", "Whether to show the greeting window\nwhen the program is opened.")) show_welcome=!show_welcome
-    if (draw_checkbox(x1 + 40, y1 + 110, check_update, "Check for updates", "Whether to check for any updates\nwhen the program is opened.")) check_update=!check_update
+    draw_areaheader(x1 + 22, y1 + 74, 218, 65, "开始界面")
+    if (draw_checkbox(x1 + 40, y1 + 90, show_welcome, "是否显示开始界面", "是否显示开始与引导界面.")) show_welcome=!show_welcome
+    if (draw_checkbox(x1 + 40, y1 + 110, check_update, "是否检查更新", "是否在程序开启时检查更新.")) check_update=!check_update
 	
 	// Auto-saving
-	draw_areaheader(x1 + 258, y1 + 74, 220, 65, "Auto-saving")
+	draw_areaheader(x1 + 258, y1 + 74, 220, 65, "自动保存")
 	as = autosave
-	if (draw_checkbox(x1 + 276, y1 + 90, autosave, "Enable auto-saving", "Whether the song should automatically\nbe saved every now and then.")) autosave=!autosave
+	if (draw_checkbox(x1 + 276, y1 + 90, autosave, "是否启用自动保存", "歌曲将会自动报存.")) autosave=!autosave
 	if (as != autosave) {
 	    changed = 1
 	    if (autosave = 0) tonextsave = 0
@@ -75,69 +75,69 @@ if (selected_tab = 0) {
 	}
 	if (autosave = 0) {
 	    draw_set_color(c_gray)
-	    draw_text(x1 + 306, y1 + 110, "Interval:       minute" + condstr(autosavemins > 1, "s"))
+	    draw_text(x1 + 306, y1 + 110, "间隔:       分钟" + condstr(autosavemins > 1, "秒"))
 		draw_text(x1 + 355, y1 + 110, autosavemins)
 	    draw_theme_color()
 	} else {
-		draw_text(x1 + 306, y1 + 110, "Interval:       minute" + condstr(autosavemins > 1, "s"))
+		draw_text(x1 + 306, y1 + 110, "间隔:       分钟" + condstr(autosavemins > 1, "秒"))
 		as = autosavemins
 		autosavemins = median(1, draw_dragvalue(2, x1 + 355, y1 + 110, autosavemins, 1), 60)
 		if (autosavemins != a) {changed = 1 tonextsave = autosavemins}
 	}
-	popup_set_window(x1 + 306, y1 + 110, 180, 16, "The amount of minutes between each auto-save.")
+	popup_set_window(x1 + 306, y1 + 110, 180, 16, "自动保存的间隔时间.")
 	
-    draw_areaheader(x1 + 22, y1 + 164, 218, 80, "Theme")
-    if (draw_radiobox(x1 + 40, y1 + 164 + 16, theme == 0, "Aqua", "Use the aqua theme.")) {theme = 0 change_theme()}
-	if (draw_radiobox(x1 + 40, y1 + 164 + 16 + 20, theme == 2, "Dark", "Use the dark theme.")) {theme = 2 change_theme()}
-    if (draw_radiobox(x1 + 40, y1 + 164 + 16 + 20 + 20, theme == 1, "90s", "Use the 90s theme.")) {theme = 1 change_theme()}
-    draw_areaheader(x1+258,y1+164,220,60,"Room Speed (Experimental)")
-    if (draw_radiobox(x1+274,y1+164+16,!refreshrate,"30FPS","Run the program at 30FPS.")) {
+    draw_areaheader(x1 + 22, y1 + 164, 218, 80, "主题")
+    if (draw_radiobox(x1 + 40, y1 + 164 + 16, theme == 0, "青色", "Use the aqua theme.")) {theme = 0 change_theme()}
+	if (draw_radiobox(x1 + 40, y1 + 164 + 16 + 20, theme == 2, "黑暗风", "Use the dark theme.")) {theme = 2 change_theme()}
+    if (draw_radiobox(x1 + 40, y1 + 164 + 16 + 20 + 20, theme == 1, "90年度风", "Use the 90s theme.")) {theme = 1 change_theme()}
+    draw_areaheader(x1+258,y1+164,220,60,"帧率 (实验功能)")
+    if (draw_radiobox(x1+274,y1+164+16,!refreshrate,"30FPS","用30帧运行程序.")) {
         game_set_speed(30,gamespeed_fps)
 		refreshrate=0
     }
-    if (draw_radiobox(x1+274,y1+164+16+20,refreshrate,"60FPS","Run the program at 60FPS.")) {
+    if (draw_radiobox(x1+274,y1+164+16+20,refreshrate,"60FPS","用60帧运行程序.")) {
         game_set_speed(60,gamespeed_fps)
 		refreshrate=1
     }
 
-	draw_text(x1 + 22, y1 + 260, "Song folder: " + string_truncate(songfolder, 360))
+	draw_text(x1 + 22, y1 + 260, "歌曲目录: " + string_truncate(songfolder, 360))
     popup_set_window(x1 + 22, y1 + 260, 430, 18, songfolder)
     if (draw_button2(x1 + 22, y1 + 276, 76, "Open")) {
         if (!directory_exists_lib(songfolder)) {
-            message("The indicated folder doesn't exist!", "Error")
+            message("指定文件夹不存在", "错误")
         } else {
             open_url(songfolder)
         }
     }
-    if (draw_button2(x1 + 22 + 84, y1 + 276, 76, "Change")) {
-        message("Select the directory where saving/loading should be opened in.", "")
-        a = string(get_save_filename_ext("", "Select song folder", songfolder, "Song folder"))
+    if (draw_button2(x1 + 22 + 84, y1 + 276, 76, "更改")) {
+        message("选择其中打开保存/加载的目录", "")
+        a = string(get_save_filename_ext("", "选择歌曲目录", songfolder, "歌曲目录"))
         if (a != "") songfolder = filename_dir(a)
     }
-    if (draw_button2(x1 + 22 + 84 + 84, y1 + 276, 96, "Use default")) songfolder = songs_directory
+    if (draw_button2(x1 + 22 + 84 + 84, y1 + 276, 96, "默认")) songfolder = songs_directory
 	
-	draw_text(x1 + 22, y1 + 310, "Pattern folder: " + string_truncate(patternfolder, 360))
+	draw_text(x1 + 22, y1 + 310, "模式目录: " + string_truncate(patternfolder, 360))
     popup_set_window(x1 + 22, y1 + 300, 430, 18, patternfolder)
-    if (draw_button2(x1 + 22, y1 + 326, 76, "Open")) {
+    if (draw_button2(x1 + 22, y1 + 326, 76, "打开")) {
         if (!directory_exists_lib(patternfolder)) {
-            message("The indicated folder doesn't exist!", "Error")
+            message("指定文件夹不存在", "错误")
         } else {
             open_url(patternfolder)
         }
     }
-    if (draw_button2(x1 + 22 + 84, y1 + 326, 76, "Change")) {
-        message("Select the directory where patterns can be imported/exported to.", "")
-        a = string(get_save_filename_ext("", "Select patterns folder", patternfolder, "Pattern folder"))
+    if (draw_button2(x1 + 22 + 84, y1 + 326, 76, "更变")) {
+        message("选择其中打开保存/加载的目录.", "")
+        a = string(get_save_filename_ext("", "选择模式目录", patternfolder, "模式文件夹"))
         if (a != "") patternfolder = filename_dir(a)
     }
-    if (draw_button2(x1 + 22 + 84 + 84, y1 + 326, 96, "Use default")) patternfolder = pattern_directory
+    if (draw_button2(x1 + 22 + 84 + 84, y1 + 326, 96, "使用默认")) patternfolder = pattern_directory
 } else if (selected_tab = 1) {
-    draw_areaheader(x1 + 22, y1 + 74, 456, 170, "Note blocks")
-    if (draw_radiobox(x1 + 40, y1 + 90, draw_type = 0, "Use colored note blocks", "If the instruments of the note blocks\nshould be recognized by different colors.")) draw_type = 0
-    if (draw_radiobox(x1 + 40, y1 + 110, draw_type = 1, "Show instrument icons", "If the instruments of the note blocks should\nbe recognized by their respective icons.")) draw_type = 1
-	if (draw_radiobox(x1 + 40, y1 + 130, draw_type = 2, "Use different shapes for each instrument", "Whether each instrument should have a different shape\nto make them more distinquisable.")) draw_type = 2
+    draw_areaheader(x1 + 22, y1 + 74, 456, 170, "音符盒")
+    if (draw_radiobox(x1 + 40, y1 + 90, draw_type = 0, "是否使用彩色音符盒图标", "是否将不同的乐器音符盒图标渲染成不同的颜色.")) draw_type = 0
+    if (draw_radiobox(x1 + 40, y1 + 110, draw_type = 1, "是否显示音符盒图标", "是否将不同的乐器音符盒图标渲染成实际样式.")) draw_type = 1
+	if (draw_radiobox(x1 + 40, y1 + 130, draw_type = 2, "是否使用不同形状的音符盒图标", "是否将不同的乐器音符盒图标渲染成不同的形状.")) draw_type = 2
 		
-    if (draw_checkbox(x1 + 40, y1 + 160, show_numbers, "Show key numbers", "Whether to show the amount of right - clicks required\nfor each note block.")) show_numbers=!show_numbers
+    if (draw_checkbox(x1 + 40, y1 + 160, show_numbers, "是否显示键值", "Whether to show the amount of right - clicks required\nfor each note block.")) show_numbers=!show_numbers
     if (draw_checkbox(x1 + 40, y1 + 180, show_octaves, "Show octave numbers", "Whether the number of the octave the note block\nis in should be shown.")) show_octaves=!show_octaves
 	if (draw_checkbox(x1 + 40, y1 + 200, fade, "No fading", "Disables transparency animations on note block sprites")) fade = !fade
 	if (draw_checkbox(x1 + 40, y1 + 220, show_layers, "Show layer boxes", "Whether the layer boxes should be\nshown to the right of the workspace.")) show_layers = !show_layers

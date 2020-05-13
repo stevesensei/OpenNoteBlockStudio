@@ -4,10 +4,10 @@ x1 = floor(window_width / 2 - 250)
 y1 = floor(window_height / 2 - 200)
 draw_window(x1, y1, x1 + 500, y1 + 400)
 draw_set_font(fnt_mainbold)
-if (window = w_update) draw_text(x1 + 8, y1 + 8, "Update")
+if (window = w_update) draw_text(x1 + 8, y1 + 8, "更新")
 else draw_text(x1 + 8, y1 + 8, "Changelist")
 draw_set_font(fnt_main)
-if (window = w_update) draw_text(x1 + 32, y1 + 32, "Thank you for upgrading to version " + version + "!")
+if (window = w_update) draw_text(x1 + 32, y1 + 32, "感谢升级 " + version + "!(暂时不翻译了咕咕咕)")
 draw_area(x1 + 16, y1 + 58, x1 + 487, y1 + 310)
 fullstr = ""
 fullstr +=  "Changes in v3.7.2 (2020.02.27):\n* Auto-saving will now wait until you pause the song to prevent stuttering.\n* Fixed notes in the first tick of a song not playing when selected.\n* Fixed C8 key on piano not being playable through keyboard shortcuts.\n* Fixed a crash when scrolling down to layer 200.\n* Fixed scrollbar in the note block area getting outside the screen in some\nwindow sizes.\n* Fixed compatibility indicator being incorrect in some circumstances.\n\n"
@@ -47,7 +47,7 @@ for (a = sb_val[update_scrollbar]; a < sb_val[update_scrollbar] + 15; a += 1) {
 }
 draw_set_font(fnt_main)
 draw_scrollbar(update_scrollbar, x1 + 470, y1 + 60, 12, 18, n, 0, 1)
-if (draw_button2(x1 + 220, y1 + 340, 72, "OK")) {
+if (draw_button2(x1 + 220, y1 + 340, 72, "好的")) {
     if (window = w_update) {
         window = w_greeting
     } else {

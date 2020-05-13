@@ -7,23 +7,23 @@ x1 = floor(window_width / 2 - 300)
 y1 = floor(window_height / 2 - 200)
 draw_window(x1, y1, x1 + 600, y1 + 400)
 draw_set_font(fnt_mainbold)
-draw_text(x1 + 8, y1 + 8, "MIDI Import")
+draw_text(x1 + 8, y1 + 8, "MIDI导入")
 draw_set_font(fnt_main)
-if (draw_checkbox(x1 + 32, y1 + 32, w_midi_removesilent, "Remove silent parts at beginning", "Whether to remove any silent parts\nat the beginning of the song.") && wmenu = 0) {w_midi_removesilent=!w_midi_removesilent midi_songlength = (midi_micsecqn * ((midi_maxpos - midi_minpos * w_midi_removesilent) / (midi_tempo & $7FFF))) / 1000000}
-if (draw_checkbox(x1 + 32, y1 + 32 + 20, w_midi_name, "Name layers...", "If the layers should be given names\ndepending on the data in the MIDI file.") && wmenu = 0) w_midi_name=!w_midi_name
-if (draw_radiobox(x1 + 52, y1 + 32 + 40, w_midi_name_patch, "...after patches", "If the layers should be named\nafter the instruments in the MIDI file.", !w_midi_name) && wmenu = 0) w_midi_name_patch = 1
-if (draw_radiobox(x1 + 52, y1 + 32 + 60, !w_midi_name_patch, "...channel numbers", "If the layers should be named\nafter the channels in the MIDI file.", !w_midi_name) && wmenu = 0) w_midi_name_patch = 0
-if (draw_checkbox(x1 + 300, y1 + 32, w_midi_tempo, "Same tempo as in file", "Set the song's tempo to match\nthe one of the MIDI file.") && wmenu = 0) w_midi_tempo=!w_midi_tempo
-draw_text(x1 + 300, y1 + 52, "Max. channel height:")
-popup_set_window(x1 + 300, y1 + 52, 140, 16, "The maximum allowed layers per channel.\nClick and drag to adjust.")
+if (draw_checkbox(x1 + 32, y1 + 32, w_midi_removesilent, "消除歌曲开头的静音部分", "移除歌曲开始的无音符的部分.") && wmenu = 0) {w_midi_removesilent=!w_midi_removesilent midi_songlength = (midi_micsecqn * ((midi_maxpos - midi_minpos * w_midi_removesilent) / (midi_tempo & $7FFF))) / 1000000}
+if (draw_checkbox(x1 + 32, y1 + 32 + 20, w_midi_name, "命名频道...", "所有的频道是否给予名字\n这取决于midi文件中的命名.") && wmenu = 0) w_midi_name=!w_midi_name
+if (draw_radiobox(x1 + 52, y1 + 32 + 40, w_midi_name_patch, "...按照midi", "如频道给予命名\n则使用midi中的乐器名.", !w_midi_name) && wmenu = 0) w_midi_name_patch = 1
+if (draw_radiobox(x1 + 52, y1 + 32 + 60, !w_midi_name_patch, "...频道序号", "如频道给予命名d\n则使用midi中的频道序号.", !w_midi_name) && wmenu = 0) w_midi_name_patch = 0
+if (draw_checkbox(x1 + 300, y1 + 32, w_midi_tempo, "保持相同速度", "保持歌曲速度和midi中一样.") && wmenu = 0) w_midi_tempo=!w_midi_tempo
+draw_text(x1 + 300, y1 + 52, "单频道最大高度:")
+popup_set_window(x1 + 300, y1 + 52, 140, 16, "设定允许单个频道占用的层数.\n单击以调整.")
 w_midi_maxheight = median(1, draw_dragvalue(1, x1 + 420, y1 + 52, w_midi_maxheight, 1), 20)
-if (draw_checkbox(x1 + 300, y1 + 72, w_midi_octave, "Keep within octave range", "Whether to automatically transpose the notes\nto keep them within the 2 octave range.") && wmenu = 0) w_midi_octave=!w_midi_octave
-if (draw_checkbox(x1 + 300, y1 + 92, w_midi_vel, "Read note velocity", "Whether to copy the volume data found\nin each MIDI note.") && wmenu = 0) w_midi_vel=!w_midi_vel
-if (draw_checkbox(x1 + 12, y1 + 374, w_midi_remember, "Remember changes", "Whether to use these settings the\nnext time you import a MIDI file.") && wmenu = 0) w_midi_remember=!w_midi_remember
-if (draw_button2(x1 + 520, y1 + 368, 72, "Import") && wmenu = 0) {w_midi_tab = 0 window = -1 import_midi()}
-if (draw_button2(x1 + 520 - 80, y1 + 368, 72, "Cancel") && wmenu = 0) {midifile = "" w_midi_tab = 0 window = 0}
-if (draw_button2(x1 + 520 - 160, y1 + 368, 72, "Use default") && wmenu = 0) {
-    if (question("Are you sure?", "Confirm")) { 
+if (draw_checkbox(x1 + 300, y1 + 72, w_midi_octave, "保持在两个八度内", "是否自动转换音符到\nmc可识别的两个八度.") && wmenu = 0) w_midi_octave=!w_midi_octave
+if (draw_checkbox(x1 + 300, y1 + 92, w_midi_vel, "读取音符信息", "是否使用原midi中的音符音量信息") && wmenu = 0) w_midi_vel=!w_midi_vel
+if (draw_checkbox(x1 + 12, y1 + 374, w_midi_remember, "是否记住更变", "是否记住这些设置以便于下次使用.") && wmenu = 0) w_midi_remember=!w_midi_remember
+if (draw_button2(x1 + 520, y1 + 368, 72, "导入") && wmenu = 0) {w_midi_tab = 0 window = -1 import_midi()}
+if (draw_button2(x1 + 520 - 80, y1 + 368, 72, "取消") && wmenu = 0) {midifile = "" w_midi_tab = 0 window = 0}
+if (draw_button2(x1 + 520 - 160, y1 + 368, 72, "使用默认信息") && wmenu = 0) {
+    if (question("你确定吗?", "确定")) { 
         midi_instruments()
         for (a = 0; a < 16; a += 1) { // Load channel settings from database
             midi_channelins[a] = midi_ins[midi_channelpatch[a], 1]
@@ -43,9 +43,9 @@ if (draw_button2(x1 + 520 - 160, y1 + 368, 72, "Use default") && wmenu = 0) {
     }
 }
 b = 8
-str[0] = "Instruments"
-str[1] = "Percussion"
-str[2] = "Tracks"
+str[0] = "乐器"
+str[1] = "打击乐器"
+str[2] = "轨道"
 if (theme = 1) {
     draw_window(x1 + 4, y1 + 145, x1 + 596, y1 + 364)
 }
@@ -105,23 +105,24 @@ draw_set_font(fnt_mainbold)
 if (midi_songlength > 0) {
     draw_text(x1 + 590, y1 + 6 + string_height(midifile), time_str(midi_songlength))
 } else {
-    draw_text(x1 + 590, y1 + 6 + string_height(midifile), "Song tempo never defined")
+    draw_text(x1 + 590, y1 + 6 + string_height(midifile), "未定义歌曲节奏")
 }
 draw_set_font(fnt_main)
 draw_set_halign(fa_left)
 if (w_midi_tab = 0) {
+	//专业名词求翻译QAQ
     tabs = 5
-    tabstr[0] = "Channel"
-    tabtip[0] = "The number of the channel."
+    tabstr[0] = "频道"
+    tabtip[0] = "歌曲的频道数量."
     tabw[0] = 50
     tabstr[1] = "Patch"
-    tabtip[1] = "The patch (instrument) of the channel."
+    tabtip[1] = "原midi乐器中对应的序号\nThe patch (instrument) of the channel."
     tabw[1] = 41
-    tabstr[2] = "Patch name"
-    tabtip[2] = "The name of the patch (instrument) of the channel."
+    tabstr[2] = "Patch名"
+    tabtip[2] = "T原midi乐器中对应的乐器名."
     tabw[2] = 260
-    tabstr[3] = "Instrument"
-    tabtip[3] = "The instrument the notes in the channel\nshould be translated to."
+    tabstr[3] = "乐器"
+    tabtip[3] = "这里可以修改转换后的."
     tabw[3] = 130
     tabstr[4] = "Octave modifier"
     tabtip[4] = "The octave modifier for all sounds in this channel."

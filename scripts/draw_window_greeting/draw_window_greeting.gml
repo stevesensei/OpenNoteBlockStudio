@@ -11,33 +11,33 @@ draw_set_font(fnt_mainbold)
 if (check_update) {
     if (update = -1) {
         draw_set_color(c_red)
-        draw_text_center(x1 + 132, y1 + 248, "Could not check for updates")
+        draw_text_center(x1 + 132, y1 + 248, "无法检查更新")
     }
     if (update = 0) {
         //draw_set_color(c_gray)
-        draw_text_center(x1 + 132, y1 + 248, "Checking for updates...")
+        draw_text_center(x1 + 132, y1 + 248, "检查更新中...")
     }
     if (update = 1) {
         draw_set_color(33023)
-        draw_text_center(x1 + 132, y1 + 248, "There is an update available!")
+        draw_text_center(x1 + 132, y1 + 248, "有新的更新啦")
     }
     if (update = 2) {
         draw_set_color(c_green)
 		if (theme == 2) draw_set_color(c_lime)
-        draw_text_center(x1 + 132, y1 + 248, "You are using the latest version!")
+        draw_text_center(x1 + 132, y1 + 248, "当前是最新版本!")
     }
     if (update = 3) {
         draw_set_color(c_lime)
-        draw_text_center(x1 + 132, y1 + 248, "Successfully updated!")
+        draw_text_center(x1 + 132, y1 + 248, "升级成功!")
     }
 } else {
     draw_set_color(c_red)
-    draw_text_center(x1 + 132, y1 + 248, "Update checking disabled by user")
+    draw_text_center(x1 + 132, y1 + 248, "你关闭了检查更新")
 }
 draw_set_font(fnt_main)
 draw_theme_color()
-draw_text_center(x1 + 132, y1 + 233, "Version " + version + " - Released " + version_date)
-draw_text_center(x1 + 132, y1 + 280, "Open source Minecraft Note Block Studio")
+draw_text_center(x1 + 132, y1 + 233, "版本 " + version + " - 发布日期 " + version_date)
+draw_text_center(x1 + 132, y1 + 280, "开源 Minecraft Note Block Studio")
 draw_set_color(make_color_rgb(62, 144, 255))
 draw_text_center(x1 + 132, y1 + 296, "www.git.io/fjQH3")
 draw_line(x1 + 85, y1 + 309, x1 + 177, y1 + 309)
@@ -50,7 +50,7 @@ if (a) {
 }
 
 draw_theme_color()
-draw_text_center(x1 + 132, y1 + 340, "Original created by David Norgren")
+draw_text_center(x1 + 132, y1 + 340, "原作者:David Norgren")
 draw_set_color(make_color_rgb(62, 144, 255))
 draw_text_center(x1 + 132, y1 + 356, "www.stuffbydavid.com")
 draw_line(x1 + 70, y1 + 369, x1 + 193, y1 + 369)
@@ -67,7 +67,7 @@ draw_theme_color()
 draw_line(x1 + 269, y1 + 24, x1 + 269, y1 + 396)
 draw_set_alpha(1)
 draw_theme_color()
-draw_text(x1 + 290, y1 + 20, "What do you want to do?")
+draw_text(x1 + 290, y1 + 20, "想做些什么呢~")
 
 b = x1 + 300
 c = y1 + 48
@@ -75,7 +75,7 @@ a = mouse_rectangle(b, c, 224, 32)
 a += (a && (mouse_check_button(mb_left) || mouse_check_button_released(mb_left)))
 draw_sprite(spr_frame2, a + 3 * theme, b, c)
 draw_sprite(spr_bigicons, 0, b + (a > 1), c + (a > 1))
-draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "Create a new song")
+draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "创建新曲子")
 if (a = 2 && mouse_check_button_released(mb_left)) window = 0
 
 c += 44
@@ -84,7 +84,7 @@ a = mouse_rectangle(b, c, 224, 32)
 a += (a && (mouse_check_button(mb_left) || mouse_check_button_released(mb_left)))
 draw_sprite(spr_frame2, a + 3 * theme, b, c)
 draw_sprite(spr_bigicons, 1, b + (a > 1), c + (a > 1))
-draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "Load a song")
+draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "加载工程")
 if (a = 2 && mouse_check_button_released(mb_left)) {
     load_song("")
     return 1
@@ -94,7 +94,7 @@ for (a = 0; a < 11; a += 1) {
     if (recent_song[a] = "") break
     if (a = 0) {
         c += 36
-        draw_text(b - 20, c, "Recent songs:")
+        draw_text(b - 20, c, "最近歌曲:")
         c += 16
     }
 
@@ -103,7 +103,7 @@ for (a = 0; a < 11; a += 1) {
     m += m && mouse_check_button(mb_left)
     if (m > 0 && mouse_check_button_released(mb_left)) {
         if (!file_exists_lib(recent_song[a])) {
-            message("Could not find file:\n" + recent_song[a], "Error")
+            message("无法找到文件:\n" + recent_song[a], "错误")
             for (d = 0; d < 10; d += 1) {
                 if (recent_song[d] = recent_song[a]) {
                     for (e = d; e < 10; e += 1) {
@@ -133,7 +133,7 @@ a = mouse_rectangle(b, c, 224, 32)
 a += (a && (mouse_check_button(mb_left) || mouse_check_button_released(mb_left)))
 draw_sprite(spr_frame2, a + 3 * theme, b, c)
 draw_sprite(spr_bigicons, 2, b + (a > 1), c + (a > 1))
-draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "Generate song out of sound file")
+draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "从midi创建新工程")
 if (a = 2 && mouse_check_button_released(mb_left)) open_midi("")
 
 b = x1 + 300
@@ -142,7 +142,7 @@ a = mouse_rectangle(b, c, 224, 32)
 a += (a && (mouse_check_button(mb_left) || mouse_check_button_released(mb_left)))
 draw_sprite(spr_frame2, a + 3 * theme, b, c)
 draw_sprite(spr_bigicons, 6, b + (a > 1), c + (a > 1))
-draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "Watch tutorial videos")
+draw_text(b + 48 + (a > 1), c + 9 + (a > 1), "教程视频(需要科学上网)")
 if (a = 2 && mouse_check_button_released(mb_left)) open_url("http://www.youtube.com/playlist?list=PL7EA4F0D271DA6E86")
 
 window_set_cursor(curs)

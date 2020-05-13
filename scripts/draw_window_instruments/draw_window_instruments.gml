@@ -6,9 +6,9 @@ x1 = floor(window_width / 2 - 275)
 y1 = floor(window_height / 2 - 175)
 draw_window(x1, y1, x1 + 550, y1 + 350)
 draw_set_font(fnt_mainbold)
-draw_text(x1 + 10, y1 + 8, "Instrument Settings")
+draw_text(x1 + 10, y1 + 8, "乐器设定")
 draw_set_font(fnt_main)
-draw_text(x1 + 12, y1 + 31, "These settings only apply to this song. To import the settings from another\nsong, click \"Import\". The sound files must be located in the \"Sounds\" folder.")
+draw_text(x1 + 12, y1 + 31, "这些设定只适用于这首歌曲. 如想从另一首歌曲导入设定\n 点击 \"导入\". 音频必须在 \"Sounds\" 文件夹内.")
 draw_set_color(c_white)
 if(theme = 2) draw_set_color(c_dark)
 draw_rectangle(x1 + 12, y1 + 66, x1 + 535, y1 + 310, 0)
@@ -18,32 +18,32 @@ if (!theme) {
 } else {
     draw_area(x1 + 11, y1 + 65, x1 + 535, y1 + 312)
 }
-if (draw_button2(x1 + 455, y1 + 34, 80, "Open Folder")) open_url(sounds_directory)
+if (draw_button2(x1 + 455, y1 + 34, 80, "打开文件夹")) open_url(sounds_directory)
 // Tabs
 draw_window(x1 + 13 + 194 + 160 + 80, y1 + 67, x1 + 14 + 194 + 160 + 80 + 88, y1 + 67 + 20)
 popup_set_window(x1 + 13 + 194 + 160 + 80, y1 + 67, 88, 20, "Whether notes of this type should be\npressed when the marker reaches them.")
 draw_text(x1 + 18 + 194 + 160 + 80, y1 + 70, "Press")
 draw_window(x1 + 13 + 194 + 160, y1 + 67, x1 + 14 + 194 + 160 + 80, y1 + 67 + 20)
-popup_set_window(x1 + 13 + 194 + 160, y1 + 67, 80, 20, "The default key pitch of the sound file.")
-draw_text(x1 + 18 + 194 + 160, y1 + 70, "Pitch")
+popup_set_window(x1 + 13 + 194 + 160, y1 + 67, 80, 20, "乐器的默认力度.")
+draw_text(x1 + 18 + 194 + 160, y1 + 70, "力度")
 draw_window(x1 + 13 + 194, y1 + 67, x1 + 14 + 194 + 160, y1 + 67 + 20)
-popup_set_window(x1 + 13 + 194, y1 + 67, 160, 20, "The sound file of this instrument.")
-draw_text(x1 + 18 + 194, y1 + 70, "Sound")
+popup_set_window(x1 + 13 + 194, y1 + 67, 160, 20, "乐器对应的音频文件.")
+draw_text(x1 + 18 + 194, y1 + 70, "乐器")
 draw_window(x1 + 13, y1 + 67, x1 + 14 + 194, y1 + 67 + 20)
-popup_set_window(x1 + 13, y1 + 67, 194, 20, "The name of this instrument.")
-draw_text(x1 + 18, y1 + 70, "Name")
-if (draw_button2(x1 + 12, y1 + 318, 80, "Import")) load_instruments("")
+popup_set_window(x1 + 13, y1 + 67, 194, 20, "乐器的名字.")
+draw_text(x1 + 18, y1 + 70, "名字")
+if (draw_button2(x1 + 12, y1 + 318, 80, "导入")) load_instruments("")
 c = 0
-if (draw_button2(x1 + 256, y1 + 318, 80, "Add", user_instruments >= 18) && wmenu = 0) {
+if (draw_button2(x1 + 256, y1 + 318, 80, "添加", user_instruments >= 18) && wmenu = 0) {
     changed = true
     insselect = ds_list_size(instrument_list)
-    ds_list_add(instrument_list, new_instrument("Custom instrument #" + string(user_instruments + 1), "", true))
+    ds_list_add(instrument_list, new_instrument("自定义乐器 #" + string(user_instruments + 1), "", true))
     c = 1
 }
 var userselect = -1;
 if (insselect > -1 && instrument_list[| insselect].user)
     userselect = instrument_list[| insselect]
-if (draw_button2(x1 + 340, y1 + 318, 80, "Remove", userselect < 0) && wmenu = 0) {
+if (draw_button2(x1 + 340, y1 + 318, 80, "删除", userselect < 0) && wmenu = 0) {
     changed = 1
     with (userselect) {
         instrument_free()
@@ -56,7 +56,7 @@ if (draw_button2(x1 + 340, y1 + 318, 80, "Remove", userselect < 0) && wmenu = 0)
     user_instruments--
     c = 1
 }
-if (draw_button2(x1 + 455, y1 + 318, 80, "OK") && wmenu = 0) window = 0
+if (draw_button2(x1 + 455, y1 + 318, 80, "确定") && wmenu = 0) window = 0
 if (mouse_check_button_pressed(mb_left)) {
     insedit = -1
 }
@@ -84,13 +84,13 @@ for (a = 0; a <= 10; a += 1) {
     if (ins.user) {draw_theme_color()}
     if (!ins.loaded) draw_set_color(c_red)
     if (insselect = b) draw_set_color(c_white)
-    draw_text(x1 + 18 + 194, y1 + 90 + 20 * a, condstr(ins.filename = "", "None") + ins.filename)
-    if (ins.filename = "") popup_set_window(x1 + 14 + 194, y1 + 88 + 20 * a, 160, 20, "No sound file has been selected\nfor this instrument.")
-    else if (!ins.loaded) popup_set_window(x1 + 14 + 194, y1 + 88 + 20 * a, 160, 20, "This sound file could not be found.")
+    draw_text(x1 + 18 + 194, y1 + 90 + 20 * a, condstr(ins.filename = "", "无") + ins.filename)
+    if (ins.filename = "") popup_set_window(x1 + 14 + 194, y1 + 88 + 20 * a, 160, 20, "当前乐器没有对应文件.")
+    else if (!ins.loaded) popup_set_window(x1 + 14 + 194, y1 + 88 + 20 * a, 160, 20, "找不到声音文件.")
     if (mouse_rectangle(x1 + 14 + 194, y1 + 88 + 20 * a, 160, 20) && insselect = b && wmenu = 0) {
         if (mouse_check_button_pressed(mb_left)) {
             if (ins.user) {
-                fn = string(get_open_filename_ext("Supported sounds (*.ogg;*.wav;*.mp3)|*.ogg;*.wav;*.mp3", "", sounds_directory, "Load sound file"))
+                fn = string(get_open_filename_ext("支持格式 (*.ogg;*.wav;*.mp3)|*.ogg;*.wav;*.mp3", "", sounds_directory, "Load sound file"))
                 if (file_exists_lib(fn)) {
                     var newfn = sounds_directory + filename_name(fn);
                     file_copy(fn, newfn)
@@ -103,7 +103,7 @@ for (a = 0; a <= 10; a += 1) {
                     }
                 }
             } else {
-                message("The sound file for this instrument cannot be changed.", "Error")
+                message("这个乐器对应的文件无法改变.", "错误")
             }
         }
         if (ins.user) curs = cr_handpoint
