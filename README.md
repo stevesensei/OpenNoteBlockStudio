@@ -13,7 +13,6 @@
 
 ## 构建
 本项目使用 Game Maker Language (GML)编写. 你必须使用 GameMaker Studio 2 以做出些改变.  
-For contributions, please open up a pull request.
 
 ## 网站
 其他事宜请访问 [网站](https://hielkeminecraft.github.io/OpenNoteBlockStudio/).
